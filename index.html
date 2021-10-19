@@ -1,0 +1,47 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Library</title>
+  <script src="./script.js" defer></script>
+  <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="./reset.css">
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1 id="title">My Library</h1>
+      <p id="intro">Hi my name is Joshua Semana and this is my take on the Library Project!<br>
+      We practiced Objects, prototypal inheritance and constructors. <br>
+    Of course we also used a lot of other techniques on top of this.</p>
+    </div>
+    <div class="form-container">
+      <form id="form">
+        <div class="title">
+          <label for="Book">Book:</label><br>
+          <input type="text" id="book-title" name="book-title" value=""><br>
+        </div>
+        <div class="name">
+          <label for="Author">Author:</label><br>
+          <input type="text" id="author-name" name="author-name" value=""><br>
+        </div>
+        <div class="status-one">
+          <input type="radio" id="read" name="status" value="Read">
+          <label for="read">Read</label><br>
+        </div>
+        <div class="status-two">
+          <input type="radio" id="unread" name="status" value="Unread">
+          <label for="read">Unread</label><br>
+        </div>
+        <input type="button" id="submit-button" value="Submit"><br>
+        <p id="output"></p>
+      </form>
+    </div>
+    <div id="book-display">
+      <table>
+      </table>
+    </div>
+  </div>
+</body>
+</html>
