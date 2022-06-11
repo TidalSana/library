@@ -1,0 +1,19 @@
+.navigation {
+  justify-content: space-between;
+  text-align: center;
+  align-items: center;
+  width: 100%;
+}
+.profile-section {
+  flex-direction: row;
+  justify-content: center;
+  align-self: flex-end;
+  align-items: center;
+}
+.profile-section {
+  height: 50px;
+}
+.profile-pic {
+  height: 100%;
+  width: 100%;
+}

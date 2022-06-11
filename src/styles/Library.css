@@ -1,0 +1,31 @@
+.book-table {
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 0.9em;
+  min-width: 400px;
+  width: 100%;
+}
+.headers {
+  background: #1f1b26;
+  color: #f4f4f4;
+}
+.book-table th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+}
+.book-table th,
+.book-table td {
+  padding: 12px 15px;
+}
+.book-table tbody tr {
+  border-bottom: 0.1px solid #dddddd;
+}
+.book-table tbody tr:nth-of-type(even) {
+  background-color: #635d64;
+  color: #f4f4f4;
+}
+.book tr:nth-child(1) {
+  font-weight: 900;
+  font-style: italic;
+}

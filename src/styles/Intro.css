@@ -1,0 +1,12 @@
+.top-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.form-container form {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
