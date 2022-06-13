@@ -1,21 +1,16 @@
-import { useState } from "react";
+import { ToggleButton, ToggleButtonGroup } from "@mui/material";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faDeleteLeft } from "@fortawesome/free-solid-svg-icons";
 import "../../styles/Library.css";
 
 const Library = (props) => {
-  const { library, remove } = props;
-  const [name, setName] = useState(false);
+  const { library, remove, update } = props;
 
-  const changeOrder = (e) => {
-    setName(!name);
-    console.log(name);
-  };
   return (
     <table className="book-table">
       <thead>
         <tr className="headers">
-          <th>
-            Name <button onClick={changeOrder}>something</button>
-          </th>
+          <th>Name</th>
           <th>Author</th>
           <th>Read</th>
           <th></th>
@@ -24,14 +19,27 @@ const Library = (props) => {
       <tbody className="book-table-content">
         {library.map((book, index) => {
           return (
-            <tr className="book" key={index} id={book.id}>
+            <tr className="book" key={index} id={book.doc}>
               <td>{book.name}</td>
               <td>{book.author}</td>
-              <td>{book.status}</td>
               <td>
-                <button onClick={remove} className="delete">
-                  X
-                </button>
+                {/* <div onClick={update}>{book.status}</div> */}
+                <ToggleButtonGroup
+                  onClick={update}
+                  exclusive
+                  value={book.status}
+                >
+                  <ToggleButton value="Not Read">Not Read</ToggleButton>
+                  <ToggleButton value="Read">Read</ToggleButton>
+                </ToggleButtonGroup>
+              </td>
+              <td>
+                <FontAwesomeIcon
+                  onClick={remove}
+                  className="delete"
+                  icon={faDeleteLeft}
+                  size="xl"
+                ></FontAwesomeIcon>
               </td>
             </tr>
           );

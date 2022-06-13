@@ -22,10 +22,19 @@
   border-bottom: 0.1px solid #dddddd;
 }
 .book-table tbody tr:nth-of-type(even) {
-  background-color: #635d64;
-  color: #f4f4f4;
+  background-color: #e6e6e6;
+  color: #1f1b26;
 }
 .book tr:nth-child(1) {
   font-weight: 900;
   font-style: italic;
+}
+
+.delete {
+  transition: 0.2s;
+}
+.delete:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+  color: #ce5f5f;
 }

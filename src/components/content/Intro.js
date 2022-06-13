@@ -1,7 +1,9 @@
 import "../../styles/Intro.css";
+// libraries
+import { Button, TextField, MenuItem } from "@mui/material/";
 
 const Intro = (props) => {
-  const { send, change } = props;
+  const { send, status, change } = props;
   return (
     <div className="top-section">
       <div className="title-section">
@@ -15,45 +17,58 @@ const Intro = (props) => {
       </div>
       <div className="form-container">
         <form onSubmit={send}>
-          <div className="title-container">
-            <label htmlFor="name">Book:</label>
-            <input
+          <div className="title-container form-items">
+            <TextField
               onChange={change}
               type="text"
               id="book-title"
               name="name"
+              label="Book Title"
               required
               defaultValue=""
+              variant="filled"
+              size="small"
             />
           </div>
-          <div className="author-name">
-            <label htmlFor="author">Author:</label>
-            <input
+          <div className="author-name form-items">
+            <TextField
               onChange={change}
               type="text"
               id="author-title"
               name="author"
+              label="Author Name"
               required
               defaultValue=""
+              variant="filled"
+              size="small"
             />
           </div>
           <div className="status">
-            <label htmlFor="status"></label>
-            <select
+            <TextField
+              select
               name="status"
-              defaultValue="Read"
-              className="status-dropdown"
+              label="Status"
+              required
+              size="small"
+              value={status}
+              className="status-dropdown form-items"
               onChange={change}
             >
-              <option value="Read">Read</option>
-              <option defaultValue value="Not Read">
-                Not Read
-              </option>
-            </select>
+              <MenuItem value="Read">Read</MenuItem>
+              <MenuItem value="Not Read">Not Read</MenuItem>
+            </TextField>
           </div>
-          <button type="submit" className="submit-info">
-            Add
-          </button>
+          <div className="add-book-button form-items">
+            <Button
+              type="submit"
+              className="submit-info"
+              variant="contained"
+              size="small"
+              color="secondary"
+            >
+              Add
+            </Button>
+          </div>
         </form>
       </div>
     </div>
