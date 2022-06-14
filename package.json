@@ -2,7 +2,7 @@
   "name": "library",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://TidalSana.github.io/library",
+  "homepage": "https://library-app-7a6ba.firebaseapp.com/",
   "dependencies": {
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
