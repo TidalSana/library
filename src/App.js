@@ -6,7 +6,7 @@ import SignInPage from "./components/SignInPage";
 import LogOut from "./components/content/LogOut";
 
 // functions
-import { addBooks, deleteBook } from "./components/firestore";
+import { deleteBook } from "./components/firestore";
 
 // styles
 import "./styles/App.css";
@@ -32,7 +32,7 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import db from "./firebase";
-import { createTheme } from "@mui/material";
+import { createTheme, Typography } from "@mui/material";
 import { ThemeProvider } from "@emotion/react";
 
 // Auth
@@ -53,6 +53,25 @@ const theme = createTheme({
       main: "#1a237e",
     },
   },
+  typography: {
+    h1: {
+      fontFamily: "Libre Franklin, sans-serif",
+      fontSize: "2.5rem",
+    },
+    h2: {
+      fontFamily: "Libre Franklin, sans-serif",
+      fontSize: "2rem",
+    },
+    subtitle1: {
+      fontFamily: "Mukta Vaani, san-serif",
+      fontWeight: "600",
+    },
+    body1: {
+      fontFamily: "Mukta Vaani, san-serif",
+      fontWeight: "500",
+      fontStyle: "oblique",
+    },
+  },
 });
 
 const App = () => {
@@ -67,40 +86,56 @@ const App = () => {
     doc: "",
   });
   // status for book being added
-  const [read, setRead] = useState("Not Read");
+  const [read, setRead] = useState("");
   // keep track of user Auth
   const [user, setUser] = useState(null);
   // user clicks submit
   const store = async (e) => {
     e.preventDefault();
-    console.log("running");
     const user = auth.currentUser;
-    populateLibrary(user);
     setLibrary((prevState) => [...prevState, book]);
     try {
-      await addBooks(bookCollection, book);
+      const docRef = doc(bookCollection);
+      await setDoc(docRef, {
+        name: book.name,
+        author: book.author,
+        status: book.status,
+        id: book.id,
+        doc: docRef.id,
+      });
+      populateLibrary(user);
     } catch (error) {
       console.log(error);
     }
+    setBook({ name: "", author: "", status: "", id: "", doc: "" });
+    setRead("");
     e.target.reset();
   };
   // onchange function
   const grabChange = (e) => {
     const { name, value } = e.target;
-    const status = document.querySelector(".status-dropdown").name;
-    setRead(value);
+    setRead(read);
     setBook((prevState) => ({
       ...prevState,
       [name]: value,
-      [status]: value,
+      id: auth.currentUser.uid,
+    }));
+  };
+  // onchange function for read in form section
+  const grabRead = (e) => {
+    setRead(e.target.value);
+    setBook((prevState) => ({
+      ...prevState,
+      status: e.target.value,
     }));
   };
   // removes item from the library
   const removeItem = (e) => {
-    const bookNumber = e.target.parentNode.parentNode.id;
+    const bookNumber = e.currentTarget.parentNode.parentNode.id;
     const removeBook = library.filter((item) => item.doc !== bookNumber);
     deleteBook(bookNumber, db);
     setLibrary(removeBook);
+    populateLibrary(auth.currentUser);
   };
   // function to populate screen
   const populateLibrary = async (account) => {
@@ -112,12 +147,7 @@ const App = () => {
 
         snapshot.docs.forEach((doc) => {
           if (uid !== doc.data().id) return;
-
           books.push({ ...doc.data(), doc: doc.id });
-          setBook((prevState) => ({
-            ...prevState,
-            doc: doc.id,
-          }));
         });
         setLibrary([...books]);
       })
@@ -148,10 +178,6 @@ const App = () => {
       .then((result) => {
         const user = result.user;
         setUser(user);
-        setBook((prevState) => ({
-          ...prevState,
-          id: user.uid,
-        }));
         populateLibrary(user);
         return setDoc(doc(db, "users", user.uid), {
           name: user.uid,
@@ -173,30 +199,25 @@ const App = () => {
         console.log(error.message);
       });
   };
-  useEffect(() => {
-    populateLibrary(auth.currentUser);
-  }, [user]);
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      setUser(user);
-    } else {
-      setUser(user);
-    }
-  });
+
   return (
     <ThemeProvider theme={theme}>
       <div className="App flex">
         <nav className="navigation flex">
           <div className="website-title">
-            <h1>My Library App</h1>
+            <Typography variant="h1" margin="1rem">
+              Library App
+            </Typography>
           </div>
           {user && <LogOut logOff={handleSignOut} pfp={user.photoURL} />}
         </nav>
 
         {user ? (
           <MainContent
+            user={user}
             send={store}
             status={read}
+            readStatus={grabRead}
             change={grabChange}
             remove={removeItem}
             update={updateRead}

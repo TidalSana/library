@@ -1,19 +1,25 @@
 import "../../styles/Intro.css";
 // libraries
-import { Button, TextField, MenuItem } from "@mui/material/";
+import { Button, TextField, MenuItem, Typography } from "@mui/material/";
+import Select from "@mui/material/Select";
 
 const Intro = (props) => {
-  const { send, status, change } = props;
+  const { user, send, status, readStatus, change } = props;
   return (
     <div className="top-section">
       <div className="title-section">
-        <h1 className="title">My Library</h1>
-        <p className="intro">
-          Hi my name is Joshua Semana and this is my take on the Library
-          Project! We practiced Objects, prototypal inheritance and
-          constructors. Of course we also used a lot of other techniques on top
-          of this.
-        </p>
+        <Typography variant="h2" size="small" margin="1.5rem">
+          {user.displayName.split(" ")[0]}'s Library
+        </Typography>
+        <Typography variant="subtitle1" align="left" margin="2rem">
+          This is my take on the Library Project! Originally I started this
+          project in September of 2021 where I practiced Objects, prototypal
+          inheritance and constructors. However, in the The Odin Project
+          curriculum we come back to implement backend concepts to this app. I
+          went ahead and applied FireBase on the backend which includes Firebase
+          Authentication and Cloud Firestore. Your typical CRUD Application!
+          ~Joshua Semana
+        </Typography>
       </div>
       <div className="form-container">
         <form onSubmit={send}>
@@ -44,19 +50,18 @@ const Intro = (props) => {
             />
           </div>
           <div className="status">
-            <TextField
-              select
+            <Select
               name="status"
               label="Status"
               required
               size="small"
               value={status}
               className="status-dropdown form-items"
-              onChange={change}
+              onChange={readStatus}
             >
-              <MenuItem value="Read">Read</MenuItem>
-              <MenuItem value="Not Read">Not Read</MenuItem>
-            </TextField>
+              <MenuItem value={"Read"}>Read</MenuItem>
+              <MenuItem value={"Not Read"}>Not Read</MenuItem>
+            </Select>
           </div>
           <div className="add-book-button form-items">
             <Button
