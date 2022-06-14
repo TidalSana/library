@@ -199,7 +199,16 @@ const App = () => {
         console.log(error.message);
       });
   };
-
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUser(user);
+        populateLibrary(user);
+      } else {
+        console.log(user);
+      }
+    });
+  }, []);
   return (
     <ThemeProvider theme={theme}>
       <div className="App flex">
